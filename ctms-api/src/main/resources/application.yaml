@@ -1,0 +1,10 @@
+server:
+  servlet:
+    context-path: /ctms-api
+  port: 9900
+  shutdown: graceful
+
+customer:
+  profile:
+    api:
+      url: https://api.customerprofile.com/tariff-plan

@@ -1,0 +1,11 @@
+{
+  "status": "OK",
+  "responseCode": "DATA_FOUND",
+  "message": "Requested data successfully returned from CPA.",
+  "source": "CPA",
+  "data": {
+    "location": "DUBAI",
+    "price": 15.00,
+    "currencyCode": "AED"
+  }
+}
