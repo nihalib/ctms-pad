@@ -8,3 +8,11 @@ customer:
   profile:
     api:
       url: https://api.customerprofile.com/tariff-plan
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/ctms_pad
+    username: postgres
+    password: postgres
+  profiles:
+    active: default

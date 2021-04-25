@@ -1,0 +1,18 @@
+databaseChangeLog:
+  - logicalFilePath: changeset-rel_1.0
+  
+  - preConditions:
+                   
+  - changeSet:
+      id: initial_ctms_pad_db_setup_1.0
+      author: bilal
+      changes:
+        # create required tables, pk, fk, seq, idx ...
+        - sqlFile:
+            dbms: postgresql
+            encoding: utf8
+            endDelimiter: \n;
+            path: ./install/initial_ctms_db_setup.sql
+            relativeToChangelogFile: true
+            splitStatements: true
+            stripComments: true

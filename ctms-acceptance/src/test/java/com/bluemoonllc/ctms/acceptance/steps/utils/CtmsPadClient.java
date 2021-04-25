@@ -29,6 +29,10 @@ public class CtmsPadClient {
         return (T) withExceptionHandling(() -> getRestTemplate().exchange(getEndpointUrl(endPointUrl), HttpMethod.POST, request, clazz));
     }
 
+    public static <T> T postRequestWithParams(String endPointUrl, HttpEntity request, Class clazz, Map<String, String> pathVariables) {
+        return (T) withExceptionHandling(() -> getRestTemplate().exchange(getEndpointUrl(endPointUrl), HttpMethod.POST, request, clazz, pathVariables));
+    }
+
     private static <T> ResponseEntity<T> withExceptionHandling(Supplier<ResponseEntity<T>> action) {
         try {
             return action.get();
