@@ -1,0 +1,13 @@
+customer:
+  profile:
+    api:
+      url: http://localhost:${wiremock.port}/tariff-plan
+
+spring:
+  datasource:
+    url: jdbc:tc:postgresql:///ctms_pad
+    username: postgres
+    password: postgres
+    driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
+  jpa:
+    show-sql: true

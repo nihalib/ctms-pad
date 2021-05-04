@@ -25,15 +25,6 @@ public class RestTemplateResponseErrorHandler implements ResponseErrorHandler {
 
     @Override
     public void handleError(ClientHttpResponse clientHttpResponse) throws IOException {
-        /*if (httpResponse.getStatusCode().series() == SERVER_ERROR) {
-            // handle SERVER_ERROR
-        } else if (httpResponse.getStatusCode().series() == CLIENT_ERROR) {
-            // handle CLIENT_ERROR
-            if (httpResponse.getStatusCode() == HttpStatus.NOT_FOUND) {
-                throw new NotFoundException();
-            }
-        }*/
-
         HttpStatus statusCode = clientHttpResponse.getStatusCode();
         MediaType contentType = clientHttpResponse
                 .getHeaders()

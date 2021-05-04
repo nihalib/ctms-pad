@@ -146,11 +146,10 @@
                                         <argument>-jar</argument>
                                         <argument>-Dwiremock.port=${wiremock.port}</argument>
                                         <argument>-Dserver.httpPort=9900</argument>
-                                       <!-- <argument>-Dspring.profiles.active=dev</argument>-->
-                                        <argument>-Dcustomer.profile.api.url=http://localhost:${wiremock.port}/tariff-plan</argument>
+                                        <argument>-Dspring.profiles.active=integration-test</argument>
                                         <argument>${project.build.directory}/ctms-api.jar</argument>
                                     </arguments>
-                                    <waitAfterLaunch>50</waitAfterLaunch>
+                                    <waitAfterLaunch>180</waitAfterLaunch>
                                 </configuration>
                             </execution>
                             <execution>

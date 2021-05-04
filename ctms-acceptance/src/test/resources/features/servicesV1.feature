@@ -1,4 +1,4 @@
-Feature: Tariff
+Feature: CRUD operation for Tariff Service
 
   @Tariff
   Scenario: Get Tariff Details
@@ -24,3 +24,14 @@ Feature: Tariff
     | location | price | currencyCode |
     | DUBAI    | 15.00 | AED          |
     | INDIA    | 93.33 | INR          |
+
+    @AddNewStation
+    Scenario Outline: Add new station details for given <stationCode>
+      Given User wants to add new location for given <stationCode>
+      And details such as <location> and <price> and <currencyCode>
+      When User makes a request with above details
+      Then service should persist data and send valid response
+      Examples:
+      | stationCode | location | price | currencyCode |
+      | qwe123      | India    | 93.33 | INR          |
+      | asd456      | DUBAI    | 15.03 | AED          |
