@@ -11,12 +11,13 @@
 
     <groupId>com.bluemoonllc</groupId>
     <artifactId>ctms-pad</artifactId>
-    <version>2020.1.1-SNAPSHOT</version>
+    <version>${artifact.version}</version>
     <packaging>pom</packaging>
     <name>ctms-pad</name>
     <description>Demo project for Customer tariff management system</description>
 
     <properties>
+        <artifact.version>2020.1.1-SNAPSHOT</artifact.version>
         <java.version>11</java.version>
     </properties>
 
