@@ -11,14 +11,26 @@
     <artifactId>ctms-model</artifactId>
 
     <properties>
-        <java.version>11</java.version>
+        <jackson.version>2.12.3</jackson.version>
     </properties>
 
     <dependencies>
+        <!-- HTTP Dependency -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
             <scope>compile</scope>
+        </dependency>
+        <!-- Model Dependency -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
         </dependency>
     </dependencies>
 

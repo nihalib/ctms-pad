@@ -15,26 +15,32 @@
 
     <properties>
         <start-class>com.bluemoonllc.ctms.api.CtmsApiApplication</start-class>
+        <ctms.model.version>2020.1.1-SNAPSHOT</ctms.model.version>
+        <test.container.version>1.15.3</test.container.version>
     </properties>
 
     <dependencies>
+        <!-- Model Dependency -->
+        <dependency>
+            <groupId>com.bluemoonllc</groupId>
+            <artifactId>ctms-model</artifactId>
+            <version>${ctms.model.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <!-- Spring Starter -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.bluemoonllc</groupId>
-            <artifactId>ctms-model</artifactId>
-            <version>2020.1.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-core</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
+        <!-- Database Dependency -->
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
@@ -44,30 +50,22 @@
             <groupId>org.liquibase</groupId>
             <artifactId>liquibase-core</artifactId>
         </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
-            <scope>runtime</scope>
-            <optional>true</optional>
-        </dependency>
-
+        <!-- Spring Test Dependency -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-
-        <!--Test Container-->
+        <!-- Test Container -->
         <dependency>
             <groupId>org.testcontainers</groupId>
             <artifactId>testcontainers</artifactId>
-            <version>1.15.3</version>
+            <version>${test.container.version}</version>
         </dependency>
         <dependency>
             <groupId>org.testcontainers</groupId>
             <artifactId>postgresql</artifactId>
-            <version>1.15.3</version>
+            <version>${test.container.version}</version>
         </dependency>
     </dependencies>
 

@@ -9,5 +9,5 @@ import java.util.Optional;
 
 @Repository
 public interface TariffRepository extends JpaRepository<TariffDao, Long> {
-    Optional<TariffDao> findByStationCode(String location);
+    Optional<TariffDao> findByLocation(String location);
 }

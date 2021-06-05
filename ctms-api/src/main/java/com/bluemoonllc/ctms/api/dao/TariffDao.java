@@ -2,6 +2,7 @@ package com.bluemoonllc.ctms.api.dao;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
@@ -18,6 +19,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Getter
 @Table(name = "tariff", schema = "ctms_pad")
 public class TariffDao implements Serializable {
 

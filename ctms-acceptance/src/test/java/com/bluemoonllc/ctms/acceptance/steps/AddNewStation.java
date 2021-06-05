@@ -30,8 +30,8 @@ public class AddNewStation {
     }
 
     @And("^details such as ([^\"]*) and ([^\"]*) and ([^\"]*)$")
-    public void buildRequest(String location, Double price, String currencyCode) {
-        tariff.setLocation(location);
+    public void buildRequest(String stationCode, Double price, String currencyCode) {
+        tariff.setStationCode(stationCode);
         tariff.setPrice(price);
         tariff.setCurrencyCode(currencyCode);
     }
