@@ -18,7 +18,6 @@
 
     <properties>
         <java.version>11</java.version>
-        <project.jdk.version>${java.version}</project.jdk.version>
     </properties>
 
     <url>http://maven.apache.org</url>
@@ -28,19 +27,6 @@
         <module>ctms-api</module>
         <module>ctms-acceptance</module>
     </modules>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
 
     <build>
         <resources>
@@ -55,8 +41,8 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>${project.jdk.version}</source>
-                    <target>${project.jdk.version}</target>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
                     <encoding>UTF-8</encoding>
                 </configuration>
                 <version>3.8.1</version>

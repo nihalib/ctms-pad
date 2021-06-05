@@ -19,9 +19,9 @@ public class AddTariffSteps {
     private Tariff tariff;
 
     @Given("^User wants to add new tariff details for given ([^\"]*) with ([^\"]*)$")
-    public void addTariff(String location, Double price) {
+    public void addTariff(String stationCode, Double price) {
         tariff = new Tariff();
-        tariff.setLocation(location);
+        tariff.setStationCode(stationCode);
         tariff.setPrice(price);
     }
 

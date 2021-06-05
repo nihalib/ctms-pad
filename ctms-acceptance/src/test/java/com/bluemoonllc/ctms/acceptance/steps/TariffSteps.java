@@ -17,9 +17,9 @@ public class TariffSteps {
         response = getRequest(END_POINT_URL, String.class);
     }
 
-    @Then("service should handle and return success status")
+    @Then("service should handle and return notfound status")
     public void assertResult() {
-        assertThat(response.getStatusCode().is2xxSuccessful()).isTrue();
-        assertThat(response.getBody()).isEqualTo("Nothing at the moment.");
+        assertThat(response.getStatusCode().is4xxClientError()).isTrue();
+        assertThat(response.getBody()).isNull();
     }
 }

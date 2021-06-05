@@ -13,21 +13,22 @@
     <properties>
         <cucumber.version>6.2.2</cucumber.version>
         <wiremock.version>2.27.2</wiremock.version>
-        <wiremock.mappings.path>${project.build.directory}/mappings</wiremock.mappings.path>
-        <wiremock.files.path>${project.build.directory}/_files</wiremock.files.path>
         <wiremock.port>9008</wiremock.port>
-        <fork.count>4</fork.count>
-        <skip.acceptance.tests>false</skip.acceptance.tests>
-        <sonar.skip>true</sonar.skip>
     </properties>
 
     <dependencies>
+        <!-- Model Dependency -->
         <dependency>
             <groupId>com.bluemoonllc</groupId>
             <artifactId>ctms-model</artifactId>
             <version>2020.1.1-SNAPSHOT</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <!-- Spring Dependency -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
@@ -38,13 +39,7 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-tx</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <!--Cucumber dependency-->
+        <!-- Cucumber Dependency -->
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-core</artifactId>
@@ -69,8 +64,7 @@
             <version>${cucumber.version}</version>
             <scope>test</scope>
         </dependency>
-
-        <!--WireMock Dependency-->
+        <!-- WireMock Dependency -->
         <dependency>
             <groupId>com.github.tomakehurst</groupId>
             <artifactId>wiremock</artifactId>
@@ -149,7 +143,7 @@
                                         <argument>-Dspring.profiles.active=integration-test</argument>
                                         <argument>${project.build.directory}/ctms-api.jar</argument>
                                     </arguments>
-                                    <waitAfterLaunch>180</waitAfterLaunch>
+                                    <waitAfterLaunch>150</waitAfterLaunch>
                                 </configuration>
                             </execution>
                             <execution>
