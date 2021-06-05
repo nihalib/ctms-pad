@@ -5,7 +5,7 @@
     <parent>
         <groupId>com.bluemoonllc</groupId>
         <artifactId>ctms-pad</artifactId>
-        <version>2020.1.1-SNAPSHOT</version>
+        <version>${artifact.version}</version>
     </parent>
 
     <artifactId>ctms-model</artifactId>
