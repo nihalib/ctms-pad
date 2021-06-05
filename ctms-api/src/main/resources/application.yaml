@@ -11,8 +11,8 @@ customer:
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/ctms_pad
-    username: postgres
-    password: postgres
+    url: jdbc:postgresql://${pg_host:localhost}:${pg_port:5432}/${pg_db:ctms_pad}
+    username: ${pg_user:postgres}
+    password: ${pg_pwd:postgres}
   profiles:
     active: default
