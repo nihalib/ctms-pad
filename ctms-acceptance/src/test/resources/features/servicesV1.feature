@@ -5,33 +5,48 @@ Feature: CRUD operation for Tariff Service
     When User request for tariff details
     Then service should handle and return notfound status
 
-  @TariffPerLocation
-  Scenario Outline: Get Tariff Details for given location <location>
-    When User request tariff details for given <location>
-    Then service should handle and return response <status>
+  @AddStation
+  Scenario Outline: Add Station without tariff
+    Given User wants to add new station with <stationId>
+    And station contains <providerId> and <chargingModes>
+    When user makes a request with station details
+    Then service should return <status>
     Examples:
-    | location | status |
-    | DUBAI    | 404    |
-    | INDIA    | 404    |
+    | stationId | providerId | chargingModes | status |
+    | 0011010   | DCS        | AC1           | 200    |
+    | 1234567   | CPI        | DC            | 200    |
+
+  @AddStation
+  Scenario Outline: Add Station with tariff details
+    Given User wants to add new station with <stationId>
+    And station contains <providerId> and <chargingModes>
+    And contains tariff details with <stationId>
+    When user makes a request with station details
+    Then service should return <status>
+    Examples:
+      | stationId | providerId | chargingModes | status |
+      | 1987654   | DCS        | AC1           | 200    |
+      | 3456789   | CPI        | DC            | 200    |
+
+  @GetStation
+  Scenario: Get Station details
+    When User requests station details
+    Then service should provide station details
 
   @AddTariff
-  Scenario Outline: Add Tariff Details for given location <stationCode>
-    Given User wants to add new tariff details for given <stationCode> with <price>
-    And With the <currencyCode>
-    When User makes a request
-    Then service should handle and validate response
+  Scenario Outline: Add Tariff details to existing station
+    Given Tariff details available with <stationId>
+    And Tariff <price> for <cityCode>
+    When User makes request with tariff details
+    Then service should add tariff details
     Examples:
-    | stationCode | price | currencyCode |
-    | DUBAI    | 15.00 | AED          |
-    | INDIA    | 93.33 | INR          |
+    | stationId | cityCode | price  |
+    | 0011010   | BLR      | 110.00 |
+    | 1234567   | HYD      | 95.10  |
+    | 1987654   | BOM      | 98.15  |
+    | 3456789   | COK      | 88.10  |
 
-    @AddNewStation
-    Scenario Outline: Add new station details for given <location>
-      Given User wants to add new location for given <location>
-      And details such as <stationCode> and <price> and <currencyCode>
-      When User makes a request with above details
-      Then service should persist data and send valid response
-      Examples:
-      | location   | stationCode | price | currencyCode |
-      | India      | qwert       | 93.33 | INR          |
-      | DUBAI      | asdfg       | 15.03 | AED          |
+  @GetTariff
+  Scenario: Get Tariff details
+    When User requests for tariff details
+    Then service should provide tariff details

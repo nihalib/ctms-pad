@@ -5,7 +5,7 @@
     <parent>
         <groupId>com.bluemoonllc</groupId>
         <artifactId>ctms-pad</artifactId>
-        <version>${artifact.version}</version>
+        <version>2020.1.1-SNAPSHOT</version>
     </parent>
 
     <artifactId>ctms-api</artifactId>
@@ -16,6 +16,7 @@
     <properties>
         <start-class>com.bluemoonllc.ctms.api.CtmsApiApplication</start-class>
         <ctms.model.version>2020.1.1-SNAPSHOT</ctms.model.version>
+        <swagger.version>1.5.9</swagger.version>
         <test.container.version>1.15.3</test.container.version>
     </properties>
 
@@ -49,6 +50,12 @@
         <dependency>
             <groupId>org.liquibase</groupId>
             <artifactId>liquibase-core</artifactId>
+        </dependency>
+        <!-- Swagger -->
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-ui</artifactId>
+            <version>${swagger.version}</version>
         </dependency>
         <!-- Spring Test Dependency -->
         <dependency>

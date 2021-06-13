@@ -1,7 +1,10 @@
 package com.bluemoonllc.ctms.acceptance.steps;
 
 import com.bluemoonllc.ctms.model.CtmsResponse;
+import com.bluemoonllc.ctms.model.Station;
 import com.bluemoonllc.ctms.model.Tariff;
+import com.bluemoonllc.ctms.model.common.ChargingModes;
+import com.bluemoonllc.ctms.model.common.ProviderEnum;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -9,42 +12,60 @@ import io.cucumber.java.en.When;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
-import static com.bluemoonllc.ctms.acceptance.steps.utils.CtmsPadClient.postRequestWithParams;
+import static com.bluemoonllc.ctms.acceptance.steps.utils.CtmsPadClient.postRequest;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class AddNewStation {
 
-    private static final String END_POINT_URL = "services/v1/tariff/{stationCode}";
+    private static final String STATION_END_POINT = "services/v1/station";
     private ResponseEntity<CtmsResponse> response;
-    private Tariff tariff;
-    private Map<String, String> pathVariables;
+    private Station station;
 
-    @Given("^User wants to add new location for given ([^\"]*)$")
-    public void getStationCode(String stationCode) {
-        tariff = new Tariff();
-        pathVariables = new HashMap<>();
-        pathVariables.put("stationCode", stationCode);
+    @Given("^User wants to add new station with ([^\"]*)$")
+    public void addStation(Long stationId) {
+        station = Station.builder()
+                .stationId(stationId)
+                .lastUpdate(LocalDateTime.now())
+                .timeZone(ZoneId.systemDefault().toString())
+                .isPublic(true)
+                .tariffs(new ArrayList<>())
+                .build();
     }
 
-    @And("^details such as ([^\"]*) and ([^\"]*) and ([^\"]*)$")
-    public void buildRequest(String stationCode, Double price, String currencyCode) {
-        tariff.setStationCode(stationCode);
-        tariff.setPrice(price);
-        tariff.setCurrencyCode(currencyCode);
+    @And("^station contains ([^\"]*) and ([^\"]*)$")
+    public void providerInfo(String providerId, String chargingModes) {
+        station = station.toBuilder()
+                .providerId(ProviderEnum.fromValues(providerId))
+                .supportedChargingModes(Collections.singletonList(ChargingModes.fromValues(chargingModes)))
+                .build();
     }
 
-    @When("User makes a request with above details")
-    public void post() {
-        HttpEntity<Tariff> httpEntity = new HttpEntity<>(tariff);
-        response = postRequestWithParams(END_POINT_URL, httpEntity, CtmsResponse.class, pathVariables);
+    @And("^contains tariff details with ([^\"]*)$")
+    public void addTariff(Long stationId) {
+        List<Tariff> tariffs = new ArrayList<>();
+        Tariff tariff = Tariff.builder()
+                .stationId(stationId)
+                .currencyCode("INR")
+                .price(100.00)
+                .cityCode("MAS").build();
+        tariffs.add(tariff);
+        station = station.toBuilder().tariffs(tariffs).build();
     }
 
-    @Then("service should persist data and send valid response")
-    public void assertResult() {
-        assertThat(response.getStatusCode().is2xxSuccessful()).isTrue();
-        assertThat(response.getBody()).isNotNull();
+    @When("user makes a request with station details")
+    public void sendRequest() {
+        HttpEntity<Station> httpEntity = new HttpEntity<>(station);
+        response = postRequest(STATION_END_POINT, httpEntity, CtmsResponse.class);
+    }
+
+    @Then("^service should return ([^\"]*)$")
+    public void assertResponse(Integer status) {
+        assertThat(response.getStatusCode().value()).isEqualTo(status);
     }
 }

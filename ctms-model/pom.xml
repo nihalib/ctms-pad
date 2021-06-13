@@ -5,13 +5,14 @@
     <parent>
         <groupId>com.bluemoonllc</groupId>
         <artifactId>ctms-pad</artifactId>
-        <version>${artifact.version}</version>
+        <version>2020.1.1-SNAPSHOT</version>
     </parent>
 
     <artifactId>ctms-model</artifactId>
 
     <properties>
         <jackson.version>2.12.3</jackson.version>
+        <swagger.version>2.1.9</swagger.version>
     </properties>
 
     <dependencies>
@@ -31,6 +32,17 @@
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
             <version>${jackson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+        <!-- Swagger -->
+        <dependency>
+            <groupId>io.swagger.core.v3</groupId>
+            <artifactId>swagger-annotations</artifactId>
+            <version>${swagger.version}</version>
         </dependency>
     </dependencies>
 
