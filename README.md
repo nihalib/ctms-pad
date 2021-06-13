@@ -9,6 +9,7 @@ CTMS handles registration for charging station and tariff information of each el
 * [Java](https://openjdk.java.net/) v11
 * [Maven](https://maven.apache.org/) v3.3
 * [Docker](https://docs.docker.com/) v20.10.6
+* [Postgresql](https://www.postgresql.org/) v9.6.21+
 
 ## Build
 * To run maven build with junit test coverage
