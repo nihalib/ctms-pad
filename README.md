@@ -28,6 +28,6 @@ java -jar ctms-api/target/ctms-api.jar
 
 ## Modules
 
-- ctms-acceptance - Acceptance/Integration test suite for CTMS application.
+- ctms-acceptance - Acceptance/Integration test suite for CTMS application. To know [more.](https://github.com/nihalib/ctms-pad/tree/main/ctms-acceptance#readme)
 - ctms-api        - RESTful service implementation.
 - ctms-model      - API definition for microservices.
