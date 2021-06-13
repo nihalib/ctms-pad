@@ -16,3 +16,11 @@ spring:
     password: ${pg_pwd:postgres}
   profiles:
     active: default
+
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true
+    operations-sorter: alpha
+    tags-sorter: alpha

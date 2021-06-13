@@ -1,15 +1,16 @@
 package com.bluemoonllc.ctms.api.service.bi;
 
 import com.bluemoonllc.ctms.model.CtmsResponse;
+import com.bluemoonllc.ctms.model.Station;
 import com.bluemoonllc.ctms.model.Tariff;
 
 public interface TariffBI {
 
-    CtmsResponse getTariff(Integer page, Integer pageSize);
+    CtmsResponse getTariff(String fetchType, Integer page, Integer pageSize);
 
-    CtmsResponse addTariff(Tariff tariff);
+    CtmsResponse addTariff(Tariff tariff, Boolean testMode);
 
-    CtmsResponse addNewStation(String location, Tariff tariff);
+    CtmsResponse addNewStation(Station station, Boolean testMode);
 
-    CtmsResponse getStation(String location);
+    CtmsResponse getStation(String fetchType, Integer page, Integer pageSize);
 }

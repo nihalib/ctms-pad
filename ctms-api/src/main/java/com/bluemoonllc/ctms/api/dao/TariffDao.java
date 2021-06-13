@@ -1,5 +1,6 @@
 package com.bluemoonllc.ctms.api.dao;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -12,6 +13,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.io.Serializable;
 
@@ -38,12 +41,16 @@ public class TariffDao implements Serializable {
             })
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "tariff_generator")
     private Long id;
-    @Column(name = "station_code", nullable = false)
-    private String stationCode;
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "station_id", referencedColumnName = "id")
+    private StationDao stationCode;
     @Column(name = "location")
     private String location;
     @Column(name = "currency_code")
     private String currencyCode;
     @Column(name = "price")
     private Double price;
+    @Column(name = "is_test_data")
+    private Boolean isTestData;
 }

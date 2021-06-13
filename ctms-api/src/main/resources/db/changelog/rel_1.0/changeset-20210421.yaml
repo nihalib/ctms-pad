@@ -16,3 +16,31 @@ databaseChangeLog:
             relativeToChangelogFile: true
             splitStatements: true
             stripComments: true
+
+  - changeSet:
+      id: create_station_1.0
+      author: bilal
+      changes:
+        # Create station table with required constraints
+        - sqlFile:
+            dbms: postgresql
+            encoding: utf8
+            endDelimiter: \n;
+            path: ./install/create_station.sql
+            relativeToChangelogFile: true
+            splitStatements: true
+            stripComments: true
+
+  - changeSet:
+      id: add_test_column_tariff_1.0
+      author: bilal
+      changes:
+        # add test mode column in tariff table
+        - sqlFile:
+            dbms: postgresql
+            encoding: utf8
+            endDelimiter: \n;
+            path: ./install/add_test_column_tariff.sql
+            relativeToChangelogFile: true
+            splitStatements: true
+            stripComments: true

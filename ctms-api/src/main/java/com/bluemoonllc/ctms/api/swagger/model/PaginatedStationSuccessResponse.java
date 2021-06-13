@@ -1,15 +1,19 @@
-package com.bluemoonllc.ctms.model;
+package com.bluemoonllc.ctms.api.swagger.model;
 
+import com.bluemoonllc.ctms.model.Station;
 import com.bluemoonllc.ctms.model.common.CtmsResponseStatus;
+import com.bluemoonllc.ctms.model.common.PaginatedResponse;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CtmsResponse<T> {
+public class PaginatedStationSuccessResponse {
     @Schema(example = "OK", description = "Response status")
     private String status;
     @Schema(example = "200", description = "Response status code")
@@ -19,5 +23,5 @@ public class CtmsResponse<T> {
     @Schema(example = "CTMS", description = "Response system source")
     private String source;
     @Schema
-    private T data;
+    private PaginatedResponse<List<Station>> data;
 }
