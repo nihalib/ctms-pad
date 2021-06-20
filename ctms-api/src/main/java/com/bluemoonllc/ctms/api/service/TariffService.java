@@ -65,6 +65,7 @@ public class TariffService implements TariffBI {
         List<Tariff> tariffs = resultContent.stream()
                 .map(record -> Tariff.builder()
                 .currencyCode(record.getCurrencyCode())
+                .tariffId(record.getTariffId())
                 .price(record.getPrice())
                 .stationId(record.getStationCode().getStationId())
                 .cityCode(record.getLocation()).build())
@@ -84,6 +85,7 @@ public class TariffService implements TariffBI {
         if (station.isPresent()) {
             TariffDao tariffDao = TariffDao.builder()
                     .stationCode(station.get())
+                    .tariffId(tariff.getTariffId())
                     .location(tariff.getCityCode())
                     .price(tariff.getPrice())
                     .currencyCode(tariff.getCurrencyCode())
@@ -92,6 +94,7 @@ public class TariffService implements TariffBI {
             TariffDao response = tariffRepository.save(tariffDao);
             Tariff result = Tariff.builder()
                     .currencyCode(response.getCurrencyCode())
+                    .tariffId(response.getTariffId())
                     .stationId(response.getStationCode().getStationId())
                     .cityCode(response.getLocation())
                     .price(response.getPrice())
@@ -115,6 +118,7 @@ public class TariffService implements TariffBI {
     public CtmsResponse addNewStation(Station station, Boolean testMode) {
         StationDao stationDao = StationDao.builder()
                 .stationId(station.getStationId())
+                .location(station.getLocation())
                 .providerId(station.getProviderId())
                 .supportedChargingModes(getChargingModes(station))
                 .timeZone(station.getTimeZone())
@@ -129,6 +133,7 @@ public class TariffService implements TariffBI {
             for (Tariff tariff : station.getTariffs()) {
                 TariffDao tariffDao = TariffDao.builder()
                         .stationCode(stationDao)
+                        .tariffId(tariff.getTariffId())
                         .location(tariff.getCityCode())
                         .price(tariff.getPrice())
                         .currencyCode(tariff.getCurrencyCode())
@@ -168,6 +173,49 @@ public class TariffService implements TariffBI {
                         .isPublic(record.getIsPublic())
                         .lastUpdate(record.getLastUpdate())
                         .providerId(record.getProviderId())
+                        .location(record.getLocation())
+                        .stationId(record.getStationId())
+                        .supportedChargingModes(record.getSupportedChargingModes())
+                        .timeZone(record.getTimeZone())
+                        .tariffs(convertTariffs(record.getTariffs()))
+                        .build())
+                .collect(Collectors.toList());
+
+        response.setData(stations);
+        response.setPageSize(result.getSize());
+        response.setTotalPage(result.getTotalPages());
+        response.setTotalRecords((int) result.getTotalElements());
+
+        CtmsResponseStatus status = CtmsResponseStatus.DATA_FOUND;
+        return new CtmsResponse<>(status.getDescription(), status, status.getMessage(), "CTMS", response);
+    }
+
+    @Override
+    public CtmsResponse getStationByLocation(String fetchType, String location, Integer page, Integer pageSize) {
+        PaginatedResponse response = new PaginatedResponse();
+
+        Pageable pageable = PageRequest.of(page, pageSize);
+        Page<StationDao> result;
+        if (!fetchType.isEmpty() && fetchType.equalsIgnoreCase("ALL")) {
+            result = stationRepository.findAllByLocation(location, pageable);
+        } else if (!fetchType.isEmpty() && fetchType.equalsIgnoreCase("TEST")) {
+            result = stationRepository.findStationDaoByLocationAndIsTestData(location, true, pageable);
+        } else {
+            result = stationRepository.findStationDaoByLocationAndIsTestData(location, false, pageable);
+        }
+
+        List<StationDao> resultContent = result.getContent();
+        if (resultContent.isEmpty()) {
+            CtmsResponseStatus status = CtmsResponseStatus.NOT_FOUND;
+            return new CtmsResponse<>(status.getDescription(), status, status.getMessage(), "CTMS", null);
+        }
+
+        List<Station> stations = resultContent.stream()
+                .map(record -> Station.builder()
+                        .isPublic(record.getIsPublic())
+                        .lastUpdate(record.getLastUpdate())
+                        .providerId(record.getProviderId())
+                        .location(record.getLocation())
                         .stationId(record.getStationId())
                         .supportedChargingModes(record.getSupportedChargingModes())
                         .timeZone(record.getTimeZone())
@@ -190,6 +238,7 @@ public class TariffService implements TariffBI {
             Tariff tariff = Tariff.builder()
                     .cityCode(tariffDao.getLocation())
                     .stationId(tariffDao.getStationCode().getStationId())
+                    .tariffId(tariffDao.getTariffId())
                     .price(tariffDao.getPrice())
                     .currencyCode(tariffDao.getCurrencyCode())
                     .build();

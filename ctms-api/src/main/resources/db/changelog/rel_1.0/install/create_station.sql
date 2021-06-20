@@ -7,6 +7,7 @@ create table ctms_pad.station
 (
     id                       bigint                   default       nextval(('ctms_pad.ctms_pad_station_sqc'::text)::regclass),
     station_id               bigint                   not null,
+    location                 varchar(16)              not null,
     provider_id              varchar(16)              not null,
     supported_charging_modes varchar(3)[],
     timezone                 varchar(50),

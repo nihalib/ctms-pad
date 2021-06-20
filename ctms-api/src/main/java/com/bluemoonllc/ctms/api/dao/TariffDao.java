@@ -17,6 +17,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.io.Serializable;
+import java.math.BigInteger;
 
 @Entity
 @AllArgsConstructor
@@ -47,6 +48,8 @@ public class TariffDao implements Serializable {
     private StationDao stationCode;
     @Column(name = "location")
     private String location;
+    @Column(name = "tariff_id")
+    private String tariffId;
     @Column(name = "currency_code")
     private String currencyCode;
     @Column(name = "price")

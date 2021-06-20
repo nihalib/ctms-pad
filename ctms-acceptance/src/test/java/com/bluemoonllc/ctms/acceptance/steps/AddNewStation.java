@@ -9,6 +9,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.assertj.core.internal.bytebuddy.utility.RandomString;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 
@@ -31,6 +32,7 @@ public class AddNewStation {
     public void addStation(Long stationId) {
         station = Station.builder()
                 .stationId(stationId)
+                .location("PARIS")
                 .lastUpdate(LocalDateTime.now())
                 .timeZone(ZoneId.systemDefault().toString())
                 .isPublic(true)
@@ -51,6 +53,7 @@ public class AddNewStation {
         List<Tariff> tariffs = new ArrayList<>();
         Tariff tariff = Tariff.builder()
                 .stationId(stationId)
+                .tariffId(RandomString.make())
                 .currencyCode("INR")
                 .price(100.00)
                 .cityCode("MAS").build();
