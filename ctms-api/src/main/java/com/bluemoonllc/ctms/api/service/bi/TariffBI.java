@@ -13,4 +13,6 @@ public interface TariffBI {
     CtmsResponse addNewStation(Station station, Boolean testMode);
 
     CtmsResponse getStation(String fetchType, Integer page, Integer pageSize);
+
+    CtmsResponse getStationByLocation(String fetchType, String location, Integer page, Integer pageSize);
 }

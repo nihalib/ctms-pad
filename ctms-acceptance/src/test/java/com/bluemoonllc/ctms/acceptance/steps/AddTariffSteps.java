@@ -7,6 +7,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.assertj.core.internal.bytebuddy.utility.RandomString;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 
@@ -24,7 +25,7 @@ public class AddTariffSteps {
     @Given("^Tariff details available with ([^\"]*)$")
     public void setTariff(Long stationId) {
         stationCode = stationId;
-        tariff = Tariff.builder().stationId(stationId).currencyCode("INR").build();
+        tariff = Tariff.builder().stationId(stationId).tariffId(RandomString.make()).currencyCode("INR").build();
     }
 
     @And("^Tariff ([^\"]*) for ([^\"]*)$")

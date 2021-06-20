@@ -25,6 +25,8 @@ import java.util.List;
 public class Station {
     @Schema(example = "11010", description = "Charging station code")
     private Long stationId;
+    @Schema(example = "paris", description = "Station location")
+    private String location;
     @Schema(example = "DCS", description = "Charging provider id", allowableValues = "DCS, CPI, NAV")
     private ProviderEnum providerId;
     @Schema(example = "[\"AC1\",\"DC\"]", description = "Charging mode", allowableValues = "AC1, AC3, DC")

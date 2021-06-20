@@ -13,6 +13,13 @@ import java.util.Optional;
 @Repository
 public interface StationRepository extends JpaRepository<StationDao, Long> {
     Optional<StationDao> findByStationId(Long stationId);
+
+    Page<StationDao> findAllByLocation(String location, Pageable pageable);
+
     @Query("select s from StationDao s where s.isTestData = :isTestData")
     Page<StationDao> findStationDaoByIsTestData(@Param("isTestData") boolean isTestData, Pageable pageRequest);
+
+    @Query("select s from StationDao s where s.location = :location and s.isTestData = :isTestData")
+    Page<StationDao> findStationDaoByLocationAndIsTestData(@Param("location") String location,
+                                                           @Param("isTestData") boolean isTestData, Pageable pageable);
 }

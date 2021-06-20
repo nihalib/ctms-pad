@@ -49,6 +49,8 @@ public class StationDao implements Serializable {
     private Long id;
     @Column(name = "station_id", nullable = false)
     private Long stationId;
+    @Column(name = "location")
+    private String location;
     @Column(name = "provider_id", nullable = false)
     private ProviderEnum providerId;
     @Column(name = "supported_charging_modes")

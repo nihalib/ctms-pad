@@ -32,3 +32,9 @@ java -jar ctms-api/target/ctms-api.jar
 - ctms-acceptance - Acceptance/Integration test suite for CTMS application. To know [more.](https://github.com/nihalib/ctms-pad/tree/main/ctms-acceptance#readme)
 - ctms-api        - RESTful service implementation.
 - ctms-model      - API definition for microservices.
+
+## Swagger
+
+```thymeleafurlexpressions
+ http://localhost:9900/ctms-api/swagger-ui/index.html?configUrl=/ctms-api/v3/api-docs/swagger-config#/
+```

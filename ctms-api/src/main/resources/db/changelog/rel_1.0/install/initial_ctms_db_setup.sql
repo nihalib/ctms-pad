@@ -8,6 +8,7 @@ create table ctms_pad.tariff
 (
     id                      bigint          not null    default     nextval(('ctms_pad.ctms_pad_tariff_sqc'::text)::regclass),
     station_id              bigint          not null,
+    tariff_id               varchar(50)     not null,
     location                varchar(50),
     currency_code           varchar(50),
     price                   varchar(50)
@@ -15,7 +16,7 @@ create table ctms_pad.tariff
 ALTER SEQUENCE ctms_pad.ctms_pad_tariff_sqc OWNED BY ctms_pad.tariff.id;
 
 ALTER TABLE ctms_pad.tariff ADD CONSTRAINT pk_tariff PRIMARY KEY (id);
-ALTER TABLE ctms_pad.tariff ADD CONSTRAINT unique_station UNIQUE (station_id, location);
+ALTER TABLE ctms_pad.tariff ADD CONSTRAINT unique_station_tariff_id UNIQUE (station_id, tariff_id);
 
 create index idx_tariff_station_id on ctms_pad.tariff (station_id);
 create index idx_tariff_location on ctms_pad.tariff (location);

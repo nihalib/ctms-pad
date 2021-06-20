@@ -20,6 +20,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -66,6 +67,25 @@ public class ServiceController {
                                                          @RequestParam(name = "pageSize", defaultValue = "1")
                                                                       Integer pageSize) {
         CtmsResponse response = service.getStation(fetchType, page, pageSize);
+        return new ResponseEntity<>(response, response.getResponseCode().getHttpCode());
+    }
+
+    @Operation(operationId = "getStationByLocation", tags = "Station",
+            summary = "Provides list of available station details for give location in paginated format")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Station list successfully provided",
+                    content = @Content(schema = @Schema(implementation = PaginatedStationSuccessResponse.class))),
+            @ApiResponse(responseCode = "404", description = "Information not found",
+                    content = @Content(schema = @Schema(implementation = DataNotFoundResponse.class)))
+    })
+    @GetMapping(value = "/station/{location}")
+    public ResponseEntity<CtmsResponse> getStationDetailsByLocation(@RequestHeader(value = "X-Fetch-Mode",
+                                                          required = false, defaultValue = "") String fetchType,
+                                                          @PathVariable(name = "location") String location,
+                                                          @RequestParam(name = "page", defaultValue = "0") Integer page,
+                                                          @RequestParam(name = "pageSize", defaultValue = "1")
+                                                                  Integer pageSize) {
+        CtmsResponse response = service.getStationByLocation(fetchType, location, page, pageSize);
         return new ResponseEntity<>(response, response.getResponseCode().getHttpCode());
     }
 

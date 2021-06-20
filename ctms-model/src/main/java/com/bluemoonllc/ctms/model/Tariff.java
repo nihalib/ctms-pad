@@ -14,6 +14,8 @@ import lombok.NoArgsConstructor;
 public class Tariff {
     @Schema(example = "11010", description = "Charging station code")
     private Long stationId;
+    @Schema(example = "Tariff123423", description = "Charging station code")
+    private String tariffId;
     @Schema(example = "10.15", description = "Charging cost")
     private double price;
     @Schema(example = "AED", description = "Currency code")
