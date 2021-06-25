@@ -8,7 +8,7 @@ COPY docker-entrypoint.sh /
 RUN chmod +x /docker-entrypoint.sh
 
 # Copy application to base directory
-COPY ctms-api/target/*.jar /app/bin/app.jar
+COPY ctms-api/target/*-api.jar /app/bin/app.jar
 
 EXPOSE 9900
 

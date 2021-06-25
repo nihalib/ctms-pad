@@ -21,10 +21,20 @@ mvn clean install
 mvn clean install -P integration-test
 ```
 
-## Run
+## Run as standalone
+##### Pre-requisites
 
+- Make sure postgres is up & running.
 ```bash
+docker run -p 5432:5432 -d -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=ctms_pad --name postgres postgres:9.6.12
 java -jar ctms-api/target/ctms-api.jar
+```
+
+## Run as docker container
+```bash
+docker network create ctms
+docker run -p 5432:5432 -d -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=ctms_pad --network=ctms --name postgres postgres:9.6.12
+docker run -p 9900:9900 -d -e pg_host=postgres --network=ctms --name ctms bilal0606/ctms-api:2020.1.1
 ```
 
 ## Modules
