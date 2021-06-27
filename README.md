@@ -33,10 +33,14 @@ java -jar ctms-api/target/ctms-api.jar
 ## Run as docker container
 ```bash
 docker network create ctms
-docker run -p 5432:5432 -d -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=ctms_pad --network=ctms --name postgres postgres:9.6.12
-docker run -p 9900:9900 -d -e pg_host=postgres --network=ctms --name ctms bilal0606/ctms-api:2020.1.1
+docker run -p 5432:5432 -d -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=ctms_pad --network=ctms --name postgres_ctms postgres:9.6.12
+docker run -p 9900:9900 -d -e pg_host=postgres_ctms --network=ctms --name ctms bilal0606/ctms-api:2020.1.1
 ```
 
+## Run on kubernetes
+```bash
+kubectl apply -f postgres-deployment.yaml,deployment.yaml
+```
 ## Modules
 
 - ctms-acceptance - Acceptance/Integration test suite for CTMS application. To know [more.](https://github.com/nihalib/ctms-pad/tree/main/ctms-acceptance#readme)

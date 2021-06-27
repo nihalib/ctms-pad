@@ -1,0 +1,67 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  labels:
+    app: postgres-ctms
+  name: postgres-ctms-data-volume
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 500Mi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: postgres-ctms
+  name: postgres-ctms
+spec:
+  replicas: 1
+  minReadySeconds: 45
+  selector:
+    matchLabels:
+      app: postgres-ctms
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: postgres-ctms
+    spec:
+      containers:
+      - env:
+        - name: POSTGRES_DB
+          value: ctms_pad
+        - name: POSTGRES_USER
+          value: postgres
+        - name: POSTGRES_PASSWORD
+          value: postgres
+        image: postgres:9.6.12
+        name: postgres-ctms
+        ports:
+        - containerPort: 5432
+        volumeMounts:
+        - mountPath: /var/lib/postgresql/data
+          name: postgres-ctms-data-volume
+      restartPolicy: Always
+      volumes:
+      - name: postgres-ctms-data-volume
+        persistentVolumeClaim:
+          claimName: postgres-ctms-data-volume
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: postgres-ctms
+  name: postgres-ctms
+spec:
+  type: LoadBalancer
+  ports:
+  - name: "5432"
+    port: 5432
+    targetPort: 5432
+  selector:
+    app: postgres-ctms
