@@ -58,7 +58,7 @@ metadata:
     app: postgres-ctms
   name: postgres-ctms
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   ports:
   - name: "5432"
     port: 5432
