@@ -39,14 +39,14 @@ spec:
             memory: 1024Mi
         readinessProbe:
           httpGet:
-            path: /actuator/info
+            path: /ctms-api/actuator/info
             port: 9900
           initialDelaySeconds: 30
           timeoutSeconds: 5
           periodSeconds: 30
         livenessProbe:
           httpGet:
-            path: /actuator/info
+            path: /ctms-api/actuator/info
             port: 9900
           initialDelaySeconds: 180
           timeoutSeconds: 5
