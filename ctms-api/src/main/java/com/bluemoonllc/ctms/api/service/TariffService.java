@@ -150,6 +150,7 @@ public class TariffService implements TariffBI {
     }
 
     public CtmsResponse getStation(String fetchType, Integer page, Integer pageSize) {
+        log.info("Get Station Request fetch type {}, page {}, pageSize {}", fetchType, page, pageSize);
         PaginatedResponse response = new PaginatedResponse();
 
         Pageable pageable = PageRequest.of(page, pageSize);
@@ -164,6 +165,7 @@ public class TariffService implements TariffBI {
 
         List<StationDao> resultContent = result.getContent();
         if (resultContent.isEmpty()) {
+            log.info("Requested station not found");
             CtmsResponseStatus status = CtmsResponseStatus.NOT_FOUND;
             return new CtmsResponse<>(status.getDescription(), status, status.getMessage(), "CTMS", null);
         }
@@ -186,12 +188,14 @@ public class TariffService implements TariffBI {
         response.setTotalPage(result.getTotalPages());
         response.setTotalRecords((int) result.getTotalElements());
 
+        log.info("Requested data returned");
         CtmsResponseStatus status = CtmsResponseStatus.DATA_FOUND;
         return new CtmsResponse<>(status.getDescription(), status, status.getMessage(), "CTMS", response);
     }
 
     @Override
     public CtmsResponse getStationByLocation(String fetchType, String location, Integer page, Integer pageSize) {
+        log.info("Get Station by location request fetch type {}, page {}, pageSize {}", fetchType, page, pageSize);
         PaginatedResponse response = new PaginatedResponse();
 
         Pageable pageable = PageRequest.of(page, pageSize);
@@ -206,6 +210,7 @@ public class TariffService implements TariffBI {
 
         List<StationDao> resultContent = result.getContent();
         if (resultContent.isEmpty()) {
+            log.info("Requested station not found");
             CtmsResponseStatus status = CtmsResponseStatus.NOT_FOUND;
             return new CtmsResponse<>(status.getDescription(), status, status.getMessage(), "CTMS", null);
         }
@@ -228,6 +233,7 @@ public class TariffService implements TariffBI {
         response.setTotalPage(result.getTotalPages());
         response.setTotalRecords((int) result.getTotalElements());
 
+        log.info("Requested data returned");
         CtmsResponseStatus status = CtmsResponseStatus.DATA_FOUND;
         return new CtmsResponse<>(status.getDescription(), status, status.getMessage(), "CTMS", response);
     }

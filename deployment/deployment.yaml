@@ -6,7 +6,7 @@ metadata:
   name: ctms-api
   namespace: default
 spec:
-  replicas: 2
+  replicas: 1
   minReadySeconds: 45
   selector:
     matchLabels:
@@ -32,10 +32,10 @@ spec:
             value: postgres-ctms
         resources:
           requests:
-            #cpu: 200m
+            cpu: 200m
             memory: 512Mi
           limits:
-            #cpu: 400m
+            cpu: 400m
             memory: 1024Mi
         readinessProbe:
           httpGet:
@@ -64,11 +64,10 @@ metadata:
   namespace: default
 spec:
   ports:
-  - nodePort: 30018
-    port: 8080
+  - port: 8080
     protocol: TCP
     targetPort: 9900
   selector:
     app: ctms-api
   sessionAffinity: None
-  type: LoadBalancer
+  type: LoadBalancer        # Change it to `NodePort`, if gateway-ingress is applied.
