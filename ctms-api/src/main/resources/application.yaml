@@ -10,6 +10,8 @@ customer:
       url: https://api.customerprofile.com/tariff-plan
 
 spring:
+  application:
+    name: ctms-api
   datasource:
     url: jdbc:postgresql://${pg_host:localhost}:${pg_port:5432}/${pg_db:ctms_pad}
     username: ${pg_user:postgres}
