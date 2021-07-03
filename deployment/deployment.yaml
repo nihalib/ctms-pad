@@ -1,0 +1,74 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: ctms-api
+  name: ctms-api
+  namespace: default
+spec:
+  replicas: 2
+  minReadySeconds: 45
+  selector:
+    matchLabels:
+      app: ctms-api
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: ctms-api
+    spec:
+      containers:
+      - image: bilal0606/ctms-api:2020.1.1
+        imagePullPolicy: IfNotPresent
+        name: ctms-api
+        ports:
+          - containerPort: 9900
+        env:
+          - name: pg_host
+            value: postgres-ctms
+        resources:
+          requests:
+            #cpu: 200m
+            memory: 512Mi
+          limits:
+            #cpu: 400m
+            memory: 1024Mi
+        readinessProbe:
+          httpGet:
+            path: /ctms-api/actuator/info
+            port: 9900
+          initialDelaySeconds: 30
+          timeoutSeconds: 5
+          periodSeconds: 30
+        livenessProbe:
+          httpGet:
+            path: /ctms-api/actuator/info
+            port: 9900
+          initialDelaySeconds: 180
+          timeoutSeconds: 5
+          periodSeconds: 30
+          failureThreshold: 3
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: ctms-api
+  name: ctms-api
+  namespace: default
+spec:
+  ports:
+  - nodePort: 30018
+    port: 8080
+    protocol: TCP
+    targetPort: 9900
+  selector:
+    app: ctms-api
+  sessionAffinity: None
+  type: LoadBalancer

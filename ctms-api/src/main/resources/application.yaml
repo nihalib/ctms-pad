@@ -24,3 +24,5 @@ springdoc:
     enabled: true
     operations-sorter: alpha
     tags-sorter: alpha
+info:
+  pod: ${HOSTNAME:null}
