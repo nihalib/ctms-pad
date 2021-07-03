@@ -1,6 +1,8 @@
 apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
 metadata:
+  labels:
+    app: ctms-api
   name: ctms-api
   namespace: default
 spec:
